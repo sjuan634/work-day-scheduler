@@ -9,6 +9,13 @@ header {
   align-items: center;
 }
 
+.clearButton {
+  border: none;
+  border-radius: 15px;
+  background-color: #06aed5;
+  color: white;
+}
+
 textarea {
   background: transparent;
   border: none;

@@ -1,8 +1,10 @@
 $(function () {
+  // Get #main-container div, #currentDay p, and .clearButton button elements
   const mainContainer = document.querySelector('#main-container');
   const currentDay = document.querySelector('#currentDay');
   const clearButton = document.querySelector('.clearButton');
 
+  // function used to create the .time-block div and all children needed for HTML
   function createHourBlock() {
     const hourBlockDiv = document.createElement('div');
     hourBlockDiv.classList.add('row', 'time-block');
@@ -26,6 +28,7 @@ $(function () {
     return(hourBlockDiv);
   }
 
+  // function used to add .time-block and all children with needed attributes for styling with existing css
   function addHourBlockHTML() {
     let hourBlock;
     for (let i = 0; i < 24; i++) {
@@ -47,6 +50,7 @@ $(function () {
     };
   }
 
+  // function used to handle click on .saveBtn. Takes textarea value and saves it to localStorage
   function handleClickSave() {
     const hourBlock = this.parentElement;
     const eventItem = hourBlock.querySelector('textarea').value;
@@ -54,6 +58,7 @@ $(function () {
     localStorage.setItem(hourBlock.id, eventItem);
   }
   
+  // function gets localStorage key and assigns the value to textarea when the page is loaded
   function init() {
     const hourBlock = document.querySelectorAll('.time-block');
 
@@ -63,7 +68,8 @@ $(function () {
     })
   }
 
-  function clearEventItems() {
+  // function used to handle click on .clearButton. clears value for textarea
+  function handleClickClear() {
     const eventItems = mainContainer.querySelectorAll('textarea');
     eventItems.forEach(function(eventItem) {
       eventItem.value = '';
@@ -83,5 +89,5 @@ $(function () {
     saveButton.addEventListener('click', handleClickSave,);
   });
 
-  clearButton.addEventListener('click', clearEventItems);
+  clearButton.addEventListener('click', handleClickClear);
 });

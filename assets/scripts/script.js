@@ -3,6 +3,7 @@ $(function () {
   const mainContainer = document.querySelector('#main-container');
   const currentDay = document.querySelector('#currentDay');
   const clearButton = document.querySelector('.clearButton');
+  const standardHours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
   // function used to create the .time-block div and all children needed for HTML
   function createHourBlock() {
@@ -31,24 +32,24 @@ $(function () {
   // function used to add .time-block and all children with needed attributes for styling with existing css
   function addHourBlockHTML() {
     let hourBlock;
-    for (let i = 0; i < 24; i++) {
+    standardHours.forEach(function(hour){
       hourBlock = createHourBlock();
-      hourBlock.setAttribute('id', `hour-${i}`);
+      hourBlock.setAttribute('id', `hour-${hour}`);
       const hourSlot = hourBlock.querySelector('div');
-      hourSlot.textContent = dayjs().hour(i).format('hA');
+      hourSlot.textContent = dayjs().hour(hour).format('hA');
 
       const inputArea = hourBlock.querySelector('textarea');
-      if (i === dayjs().hour()) {
+      if (hour === dayjs().hour()) {
         inputArea.classList.add('present');
-      } else if (i < dayjs().hour()) {
+      } else if (hour < dayjs().hour()) {
         inputArea.classList.add('past');
       } else {
         inputArea.classList.add('future');
       }
 
       mainContainer.appendChild(hourBlock);
+    })
     };
-  }
 
   // function used to handle click on .saveBtn. Takes textarea value and saves it to localStorage
   function handleClickSave() {
